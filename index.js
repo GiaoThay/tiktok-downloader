@@ -53,11 +53,11 @@ const getInput = (message) => new Promise((resolve, reject) => {
 });
 
 const generateUrlProfile = (username) => {
-    var baseUrl = "https://www.tiktok.com/";
+    var baseUrl = "https://vm.tiktok.com/";
     if (username.includes("@")) {
         baseUrl = `${baseUrl}${username}`;
     } else {
-        baseUrl = `${baseUrl}@${username}`;
+        baseUrl = `${baseUrl}${username}`;
     }
     return baseUrl;
 };
@@ -136,6 +136,12 @@ const getListVideoByUsername = async (username) => {
         "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_14_6) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/85.0.4182.0 Safari/537.36"
       );
     await page.goto(baseUrl)
+await page.waitForTimeout(10000)
+  page.evaluate(() => {
+        const baseElement = document.querySelector(".tiktok-31630c-DivInfoContainer > a");
+        return baseElement.href;
+    });
+    await page.waitForTimeout(20000)
     var listVideo = []
     console.log(chalk.green("[*] Getting list video from: " + username))
     var loop = true
@@ -153,7 +159,7 @@ const getListVideoByUsername = async (username) => {
             console.log(chalk.green(`[*] Total video found: ${listVideo.length}`))
             loop = false
         });
-        await new Promise((resolve) => setTimeout(resolve, 1000));
+        await new Promise((resolve) => setTimeout(resolve, 10000));
     }
     await browser.close()
     return listVideo
