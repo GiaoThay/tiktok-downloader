@@ -53,11 +53,11 @@ const getInput = (message) => new Promise((resolve, reject) => {
 });
 
 const generateUrlProfile = (username) => {
-    var baseUrl = "https://vm.tiktok.com/";
+    var baseUrl = "";
     if (username.includes("@")) {
-        baseUrl = `${baseUrl}${username}`;
+        baseUrl = `${username}`;
     } else {
-        baseUrl = `${baseUrl}${username}`;
+        baseUrl = `${username}`;
     }
     return baseUrl;
 };
